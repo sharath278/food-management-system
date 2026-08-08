@@ -3,11 +3,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Food = require('./models/food');
 const foods = require("./routes/food");
-
+const cors = require("cors");
 
 const app = express();
 
-
+app.use(cors());
 app.use(express.json());  
 
 
