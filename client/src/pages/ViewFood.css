@@ -12,7 +12,6 @@
     );
 
     padding: 50px 30px 80px;
-
     box-sizing: border-box;
 
     font-family:
@@ -41,7 +40,6 @@
     font-weight: 700;
 
     letter-spacing: 3px;
-
     color: #ff6535;
 }
 
@@ -60,7 +58,6 @@
     margin: 10px 0 0;
 
     font-size: 16px;
-
     color: #7a7f87;
 }
 
@@ -71,7 +68,6 @@
 
 .back-container {
     max-width: 1100px;
-
     margin: 0 auto 18px;
 }
 
@@ -90,13 +86,12 @@
 
 .back-button:hover {
     background: rgba(255, 101, 53, 0.08) !important;
-
     color: #ff6535 !important;
 }
 
 
 /* =========================
-   MAIN CARD
+   MAIN FOOD CARD
 ========================= */
 
 .view-food-card {
@@ -105,7 +100,6 @@
     margin: 0 auto;
 
     display: grid;
-
     grid-template-columns: 1.05fr 0.95fr;
 
     overflow: hidden;
@@ -118,8 +112,9 @@
         0 20px 50px rgba(0, 0, 0, 0.08),
         0 5px 15px rgba(0, 0, 0, 0.04) !important;
 
-    transition: transform 0.3s ease,
-                box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .view-food-card:hover {
@@ -132,7 +127,7 @@
 
 
 /* =========================
-   IMAGE
+   IMAGE SECTION
 ========================= */
 
 .food-image-section {
@@ -159,7 +154,7 @@
 }
 
 
-/* Dark gradient over image */
+/* Image bottom gradient */
 
 .food-image-section::after {
     content: "";
@@ -182,7 +177,7 @@
 
 
 /* =========================
-   VEG BADGE
+   VEG / NON-VEG BADGE
 ========================= */
 
 .image-badge {
@@ -236,22 +231,21 @@
     color: #333;
 
     font-size: 13px;
-
     font-weight: 700;
 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 
 /* =========================
-   CONTENT
+   CONTENT SECTION
 ========================= */
 
 .view-food-content {
     padding: 45px !important;
 
     display: flex;
-
     flex-direction: column;
 
     box-sizing: border-box;
@@ -259,7 +253,7 @@
 
 
 /* =========================
-   TITLE
+   FOOD TITLE
 ========================= */
 
 .food-heading {
@@ -341,7 +335,7 @@
 
 
 /* =========================
-   DETAILS GRID
+   FOOD DETAILS GRID
 ========================= */
 
 .food-details-grid {
@@ -380,6 +374,9 @@
     transform: translateY(-2px);
 }
 
+
+/* Detail icon */
+
 .detail-icon {
     width: 38px;
     height: 38px;
@@ -397,6 +394,9 @@
 
     font-size: 17px;
 }
+
+
+/* Detail text */
 
 .detail-box span {
     display: block;
@@ -417,6 +417,11 @@
 
     color: #333;
 }
+
+
+/* =========================
+   AVAILABILITY
+========================= */
 
 .available {
     color: #2e8b45 !important;
@@ -498,6 +503,80 @@
 
 
 /* =========================
+   EDIT + DELETE BUTTONS
+========================= */
+
+.admin-actions {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 14px;
+}
+
+
+.edit-button,
+.delete-button {
+    height: 48px !important;
+
+    border-radius: 9px !important;
+
+    font-size: 14px !important;
+
+    font-weight: 700 !important;
+
+    text-transform: none !important;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease !important;
+}
+
+
+/* Edit button */
+
+.edit-button {
+    border: 1px solid #ff6535 !important;
+
+    color: #ff6535 !important;
+
+    background: white !important;
+}
+
+.edit-button:hover {
+    background: #fff3ee !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(255, 101, 53, 0.12);
+}
+
+
+/* Delete button */
+
+.delete-button {
+    border: 1px solid #dc3d3d !important;
+
+    color: #dc3d3d !important;
+
+    background: white !important;
+}
+
+.delete-button:hover {
+    background: #fff0f0 !important;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(220, 61, 61, 0.12);
+}
+
+
+/* =========================
    LOADING
 ========================= */
 
@@ -531,7 +610,9 @@
 }
 
 
-/* Loading spinner */
+/* =========================
+   LOADING SPINNER
+========================= */
 
 .loader {
     width: 40px;
@@ -650,6 +731,17 @@
 
     .order-button {
         height: 50px;
+    }
+
+    /* Edit/Delete stack on mobile */
+
+    .admin-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .edit-button,
+    .delete-button {
+        height: 48px !important;
     }
 
 }

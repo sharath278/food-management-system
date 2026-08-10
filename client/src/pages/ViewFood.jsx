@@ -21,6 +21,8 @@ const ViewFood = () => {
     const [food, setFood] = useState({});
     const [loading, setLoading] = useState(true);
 
+
+    // Get single food
     useEffect(() => {
 
         const getdata = async () => {
@@ -50,12 +52,41 @@ const ViewFood = () => {
     }, [id]);
 
 
+    // Delete food
+    const deletefood = async () => {
+
+        try {
+
+            await axios.delete(
+                `http://localhost:8080/api/food/${id}`
+            );
+
+            
+
+            navigate("/");
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert("Failed to delete food");
+
+        }
+
+    };
+
+
     if (loading) {
 
         return (
             <div className="loading-container">
+
                 <div className="loader"></div>
-                <p>Loading food details...</p>
+
+                <p>
+                    Loading food details...
+                </p>
+
             </div>
         );
 
@@ -65,6 +96,7 @@ const ViewFood = () => {
     return (
 
         <div className="view-food-page">
+
 
             {/* Page Header */}
 
@@ -139,9 +171,7 @@ const ViewFood = () => {
                     {/* Category */}
 
                     <div className="category-badge">
-
                         {food.category}
-
                     </div>
 
                 </div>
@@ -189,8 +219,6 @@ const ViewFood = () => {
 
                     </div>
 
-
-                    {/* Divider */}
 
                     <div className="divider"></div>
 
@@ -266,7 +294,9 @@ const ViewFood = () => {
                         <div className="detail-box">
 
                             <div className="detail-icon">
-                                {food.isAvailable ? "✓" : "×"}
+                                {food.isAvailable
+                                    ? "✓"
+                                    : "×"}
                             </div>
 
                             <div>
@@ -311,6 +341,8 @@ const ViewFood = () => {
                         </div>
 
 
+                        {/* Order Button */}
+
                         <Button
                             variant="contained"
                             fullWidth
@@ -321,6 +353,32 @@ const ViewFood = () => {
                                 ? "ORDER NOW"
                                 : "NOT AVAILABLE"}
                         </Button>
+
+
+                        {/* Edit + Delete */}
+
+                        <div className="admin-actions">
+
+                            <Button
+                                variant="outlined"
+                                className="edit-button"
+                                onClick={() =>
+                                    navigate(`/food/edit/${id}`)
+                                }
+                            >
+                                ✏ Edit Food
+                            </Button>
+
+
+                            <Button
+                                variant="outlined"
+                                className="delete-button"
+                                onClick={deletefood}
+                            >
+                                🗑 Delete Food
+                            </Button>
+
+                        </div>
 
                     </div>
 
