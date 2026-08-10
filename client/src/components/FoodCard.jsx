@@ -1,94 +1,126 @@
 import React from "react";
 
 import {
-  Card,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography,
-  Chip,
+    Card,
+    CardContent,
+    CardMedia,
+    Button,
+    Typography,
+    Chip,
 } from "@mui/material";
+
+import { Link } from "react-router-dom";
 
 import "./FoodCard.css";
 
 const FoodCard = ({ info }) => {
-  return (
-    <Card className="food-card">
 
-      {/* Image */}
-      <div className="food-image-container">
+    return (
 
-        <CardMedia
-          component="img"
-          loading="lazy"
-          image={info.image}
-          alt={info.name}
-          className="food-card-image"
-        />
+        <Card>
 
-        <div className="food-badge">
-          <Chip
-            label={info.isVeg ? "VEG" : "NON-VEG"}
-            size="small"
-            color={info.isVeg ? "success" : "error"}
-          />
-        </div>
+            {/* Image */}
+            <div className="food-image-container">
 
-      </div>
+                <CardMedia
+                    component="img"
+                    loading="lazy"
+                    image={info.image}
+                    alt={info.name}
+                    className="food-card-image"
+                />
 
-      {/* Content */}
-      <CardContent className="food-card-content">
+                <div className="food-badge">
 
-        <Typography
-          variant="h6"
-          className="food-name"
-        >
-          {info.name}
-        </Typography>
+                    <Chip
+                        label={info.isVeg ? "VEG" : "NON-VEG"}
+                        size="small"
+                        color={info.isVeg ? "success" : "error"}
+                    />
 
-        <Typography
-          variant="body2"
-          className="food-description"
-        >
-          {info.description}
-        </Typography>
+                </div>
 
-        <div className="food-bottom">
-
-          <div>
-            <Typography className="food-price">
-              ₹{info.price}
-            </Typography>
-
-            <div className="food-meta">
-              <span>⭐ {info.rating}</span>
-              <span>🍴 {info.category}</span>
             </div>
-          </div>
 
-          <div className="food-time">
-            ⏱ {info.preparationTime} mins
-          </div>
 
-        </div>
+            {/* Content */}
+            <CardContent className="food-card-content">
 
-      </CardContent>
+                <Typography
+                    variant="h6"
+                    className="food-name"
+                >
+                    {info.name}
+                </Typography>
 
-      {/* Button */}
-      <div className="food-card-actions">
 
-        <Button
-          variant="contained"
-          fullWidth
-          className="view-button"
-        >
-          View Details
-        </Button>
+                <Typography
+                    variant="body2"
+                    className="food-description"
+                >
+                    {info.description}
+                </Typography>
 
-      </div>
 
-    </Card>
-  );
+                <div className="food-bottom">
+
+                    <div>
+
+                        <Typography className="food-price">
+                            ₹{info.price}
+                        </Typography>
+
+
+                        <div className="food-meta">
+
+                            <span>
+                                ⭐ {info.rating}
+                            </span>
+
+                            <span>
+                                🍴 {info.category}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div className="food-time">
+                        ⏱ {info.preparationTime} mins
+                    </div>
+
+                </div>
+
+            </CardContent>
+
+
+            {/* Button */}
+            <div className="food-card-actions">
+
+                <Link
+                    to={`/food/${info._id}`}
+                    style={{
+                        textDecoration: "none",
+                        width: "100%"
+                    }}
+                >
+
+                    <Button
+                        variant="contained"
+                        fullWidth
+                        className="view-button"
+                    >
+                        View Details
+                    </Button>
+
+                </Link>
+
+            </div>
+
+        </Card>
+
+    );
 };
 
 export default FoodCard;
