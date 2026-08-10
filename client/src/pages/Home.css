@@ -1,20 +1,55 @@
 .home-container {
-  padding: 40px 5%;
+  min-height: 100vh;
+  padding: 55px 5%;
+  background: #f7f9fc;
 }
 
-.home-container h1 {
+/* Heading */
+
+.home-heading {
   text-align: center;
-  margin-bottom: 35px;
-  font-size: 32px;
+  margin-bottom: 45px;
 }
+
+.home-heading h1 {
+  margin: 0;
+  font-size: 38px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.home-heading p {
+  margin-top: 15px;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Decorative heading line */
+
+.heading-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 12px;
+}
+
+.heading-line span {
+  width: 65px;
+  height: 2px;
+  background: #1976d2;
+}
+
+/* Food grid */
 
 .food-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+  gap: 28px;
 }
 
-/* Laptop */
+/* Large laptop */
+
 @media (max-width: 1200px) {
   .food-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -22,6 +57,7 @@
 }
 
 /* Tablet */
+
 @media (max-width: 900px) {
   .food-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -29,7 +65,16 @@
 }
 
 /* Mobile */
+
 @media (max-width: 600px) {
+  .home-container {
+    padding: 35px 20px;
+  }
+
+  .home-heading h1 {
+    font-size: 30px;
+  }
+
   .food-grid {
     grid-template-columns: 1fr;
   }

@@ -1,7 +1,7 @@
 import React from "react";
+
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Button,
@@ -15,26 +15,36 @@ const FoodCard = ({ info }) => {
   return (
     <Card className="food-card">
 
-      <CardMedia
-        component="img"
-        className="food-card-image"
-        image={info.image}
-        alt={info.name}
-      />
+      {/* Image */}
+      <div className="food-image-container">
 
-      <CardContent className="food-card-content">
+        <CardMedia
+          component="img"
+          loading="lazy"
+          image={info.image}
+          alt={info.name}
+          className="food-card-image"
+        />
 
-        <div className="food-card-header">
-          <Typography variant="h6" className="food-name">
-            {info.name}
-          </Typography>
-
+        <div className="food-badge">
           <Chip
             label={info.isVeg ? "VEG" : "NON-VEG"}
             size="small"
             color={info.isVeg ? "success" : "error"}
           />
         </div>
+
+      </div>
+
+      {/* Content */}
+      <CardContent className="food-card-content">
+
+        <Typography
+          variant="h6"
+          className="food-name"
+        >
+          {info.name}
+        </Typography>
 
         <Typography
           variant="body2"
@@ -43,31 +53,39 @@ const FoodCard = ({ info }) => {
           {info.description}
         </Typography>
 
-        <div className="food-info">
-          <Typography className="food-price">
-            ₹{info.price}
-          </Typography>
+        <div className="food-bottom">
 
-          <Typography className="food-rating">
-            ⭐ {info.rating}
-          </Typography>
-        </div>
+          <div>
+            <Typography className="food-price">
+              ₹{info.price}
+            </Typography>
 
-        <div className="food-extra">
-          <span>🍽️ {info.category}</span>
-          <span>⏱️ {info.preparationTime} mins</span>
+            <div className="food-meta">
+              <span>⭐ {info.rating}</span>
+              <span>🍴 {info.category}</span>
+            </div>
+          </div>
+
+          <div className="food-time">
+            ⏱ {info.preparationTime} mins
+          </div>
+
         </div>
 
       </CardContent>
 
-      <CardActions className="food-card-actions">
+      {/* Button */}
+      <div className="food-card-actions">
+
         <Button
           variant="contained"
           fullWidth
+          className="view-button"
         >
           View Details
         </Button>
-      </CardActions>
+
+      </div>
 
     </Card>
   );
