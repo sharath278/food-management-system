@@ -2,7 +2,10 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const Food = require('./models/food');
+const User = require('./models/user');
 const foods = require("./routes/food");
+const users = require("./routes/auth");
+
 const cors = require("cors");
 
 const app = express();
@@ -25,6 +28,7 @@ async function main() {
 
 
 app.use("/",foods);
+app.use("/",users);
 
 
 
