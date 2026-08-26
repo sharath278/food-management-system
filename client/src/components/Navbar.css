@@ -1,0 +1,128 @@
+/* =========================
+   Navbar
+========================= */
+
+.navbar {
+  background: linear-gradient(90deg, #1565c0, #1976d2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* =========================
+   Toolbar
+========================= */
+
+.navbar-toolbar {
+  min-height: 72px !important;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+/* =========================
+   Logo
+========================= */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: white;
+  text-decoration: none;
+  margin-right: 40px;
+  transition: 0.2s;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.03);
+}
+
+.navbar-logo-text {
+  font-weight: 700 !important;
+  letter-spacing: 0.5px;
+}
+
+/* =========================
+   Navigation
+========================= */
+
+.navbar-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.navbar-nav-button {
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  text-transform: uppercase !important;
+  border-radius: 8px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+.navbar-nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+/* =========================
+   Login / Logout
+========================= */
+
+.navbar-auth-button {
+  color: white !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  border-radius: 8px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  transition: 0.2s !important;
+}
+
+.navbar-auth-button:hover {
+  background-color: white !important;
+  color: #1565c0 !important;
+  transform: translateY(-1px);
+}
+
+/* =========================
+   Cart
+========================= */
+
+.navbar-cart-button {
+  color: white !important;
+  margin-left: 8px !important;
+  border-radius: 8px !important;
+  transition: 0.2s !important;
+}
+
+.navbar-cart-button:hover {
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  transform: scale(1.05);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 600px) {
+  .navbar-toolbar {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .navbar-logo {
+    margin-right: 16px;
+  }
+
+  .navbar-navigation {
+    gap: 4px;
+  }
+
+  .navbar-nav-button {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    font-size: 13px !important;
+  }
+}

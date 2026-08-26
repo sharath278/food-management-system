@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 
 import { Link } from "react-router-dom";
-
+import "./Navbar.css";
 
 // =========================
 // Restaurant Icon
@@ -33,7 +33,6 @@ const RestaurantIcon = () => (
   </svg>
 );
 
-
 // =========================
 // Shopping Cart Icon
 // =========================
@@ -54,50 +53,51 @@ const ShoppingCartIcon = () => (
   </svg>
 );
 
-
 // =========================
 // Navbar
 // =========================
-const Navbar = () => {
+const Navbar = ({
+  isLoggedIn,
+  setIsLoggedIn,
+  user,
+  setUser,
+}) => {
+
+  // Logout function
+  const handleLogout = () => {
+
+    // Remove JWT
+    localStorage.removeItem("token");
+
+    // Remove user information
+    setUser(null);
+
+    // Change login state
+    setIsLoggedIn(false);
+  };
+
   return (
     <AppBar
       position="sticky"
-      elevation={3}
-      sx={{
-        background: "linear-gradient(90deg, #1565c0, #1976d2)",
-      }}
+      elevation={0}
+      className="navbar"
     >
 
-      <Toolbar
-        sx={{
-          minHeight: "72px !important",
-          px: { xs: 2, md: 5 },
-        }}
-      >
+      <Toolbar className="navbar-toolbar">
 
         {/* ================= Logo ================= */}
 
         <Box
           component={Link}
           to="/"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1.2,
-            color: "white",
-            textDecoration: "none",
-            mr: { xs: 2, md: 5 },
-          }}
+          className="navbar-logo"
         >
 
           <RestaurantIcon />
 
           <Typography
             variant="h5"
-            sx={{
-              fontWeight: 700,
-              letterSpacing: 0.5,
-            }}
+            className="navbar-logo-text"
           >
             Foodie
           </Typography>
@@ -107,49 +107,20 @@ const Navbar = () => {
 
         {/* ================= Navigation ================= */}
 
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: { xs: 0.5, md: 2 },
-            flexGrow: 1,
-          }}
-        >
+        <Box className="navbar-navigation">
 
           <Button
             component={Link}
             to="/"
-            sx={{
-              color: "white",
-              fontWeight: 600,
-              fontSize: "15px",
-              textTransform: "uppercase",
-
-              "&:hover": {
-                backgroundColor: "rgba(255,255,255,0.12)",
-              },
-            }}
+            className="navbar-nav-button"
           >
             Home
           </Button>
 
-
-          
-
-
           <Button
             component={Link}
             to="/about"
-            sx={{
-              color: "white",
-              fontWeight: 600,
-              fontSize: "15px",
-              textTransform: "uppercase",
-
-              "&:hover": {
-                backgroundColor: "rgba(255,255,255,0.12)",
-              },
-            }}
+            className="navbar-nav-button"
           >
             About
           </Button>
@@ -157,27 +128,46 @@ const Navbar = () => {
         </Box>
 
 
-        {/* ================= Login ================= */}
+        {/* ================= User + Login / Logout ================= */}
 
-        <Button
-          component={Link}
-          to="/login"
-          sx={{
-            color: "white",
-            border: "1px solid rgba(255,255,255,0.8)",
-            borderRadius: "8px",
-            px: 2.5,
-            textTransform: "uppercase",
-            fontWeight: 600,
+        {isLoggedIn ? (
 
-            "&:hover": {
-              backgroundColor: "white",
-              color: "#1565c0",
-            },
-          }}
-        >
-          Login
-        </Button>
+          <>
+            {/* Show user's name */}
+
+            <Typography
+              className="navbar-user-name"
+              sx={{
+                color: "white",
+                fontWeight: 600,
+                marginRight: "15px",
+              }}
+            >
+              Hi, {user?.name}
+            </Typography>
+
+
+            {/* Logout button */}
+
+            <Button
+              onClick={handleLogout}
+              className="navbar-auth-button"
+            >
+              Logout
+            </Button>
+          </>
+
+        ) : (
+
+          <Button
+            component={Link}
+            to="/login"
+            className="navbar-auth-button"
+          >
+            Login
+          </Button>
+
+        )}
 
 
         {/* ================= Cart ================= */}
@@ -185,14 +175,7 @@ const Navbar = () => {
         <IconButton
           component={Link}
           to="/cart"
-          sx={{
-            color: "white",
-            ml: 1,
-
-            "&:hover": {
-              backgroundColor: "rgba(255,255,255,0.12)",
-            },
-          }}
+          className="navbar-cart-button"
         >
           <ShoppingCartIcon />
         </IconButton>

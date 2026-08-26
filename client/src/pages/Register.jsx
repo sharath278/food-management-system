@@ -42,7 +42,7 @@ const Register = () => {
                 userData
             );
 
-            console.log(res.data);
+            
 
             navigate("/login");
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn, setUser }) => {
 
     const navigate = useNavigate();
 
@@ -12,6 +12,7 @@ const Login = () => {
         password: "",
     });
 
+    // Handles input changes
     const handleinput = (event) => {
         setFormdata((prev) => ({
             ...prev,
@@ -19,10 +20,13 @@ const Login = () => {
         }));
     };
 
+    // Handles login
     const submithandle = async (event) => {
         event.preventDefault();
 
         try {
+
+            // Send login details to backend
             const res = await axios.post(
                 "http://localhost:8080/login",
                 formdata
@@ -30,13 +34,23 @@ const Login = () => {
 
             console.log(res.data);
 
-         
-            localStorage.setItem("token", res.data.token);
+            // Get JWT from backend
+            const token = res.data.token;
 
-           
+            // Store JWT in browser
+            localStorage.setItem("token", token);
+
+            // Store logged-in user's information in App state
+            setUser(res.data.user);
+
+            // Tell App that user is logged in
+            setIsLoggedIn(true);
+
+            // Go to home page
             navigate("/");
 
         } catch (err) {
+
             console.log(err);
 
             alert(
@@ -53,12 +67,16 @@ const Login = () => {
 
                 <div className="login-header">
                     <h1>Welcome Back 👋</h1>
-                    <p>Login to continue ordering your favorite food</p>
+
+                    <p>
+                        Login to continue ordering your favorite food
+                    </p>
                 </div>
 
                 <form onSubmit={submithandle}>
 
                     <div className="login-input-group">
+
                         <label>Email</label>
 
                         <input
@@ -68,9 +86,11 @@ const Login = () => {
                             value={formdata.email}
                             onChange={handleinput}
                         />
+
                     </div>
 
                     <div className="login-input-group">
+
                         <label>Password</label>
 
                         <input
@@ -80,6 +100,7 @@ const Login = () => {
                             value={formdata.password}
                             onChange={handleinput}
                         />
+
                     </div>
 
                     <button
@@ -92,11 +113,13 @@ const Login = () => {
                 </form>
 
                 <p className="signup-text">
+
                     Don't have an account?
 
                     <span onClick={() => navigate("/signup")}>
                         Sign Up
                     </span>
+
                 </p>
 
             </div>

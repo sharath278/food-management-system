@@ -30,15 +30,48 @@ const AddFood = () => {
 
     };
 
-    const submithandle = (event) => {
+    const submithandle = async (event) => {
 
         event.preventDefault();
 
         console.log(formdata);
 
-        axios.post("http://localhost:8080/api/food", formdata);
+        // =========================
+        // Get JWT from localStorage
+        // =========================
 
-        navigate("/");
+        const token = localStorage.getItem("token");
+
+        try {
+
+            // =========================
+            // Send food data + JWT
+            // =========================
+
+            const res = await axios.post(
+                "http://localhost:8080/api/food",
+                formdata,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            console.log(res.data);
+
+            // Only navigate if food was successfully created
+            navigate("/");
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert(
+                error.response?.data?.message ||
+                "Failed to add food"
+            );
+        }
     };
 
     return (
@@ -116,15 +149,34 @@ const AddFood = () => {
                                     Select category
                                 </option>
 
-                                <option value="Pizza">Pizza</option>
-                                <option value="Burger">Burger</option>
-                                <option value="Biryani">Biryani</option>
-                                <option value="Chinese">Chinese</option>
-                                <option value="Drinks">Drinks</option>
-                                <option value="Dessert">Dessert</option>
+                                <option value="Pizza">
+                                    Pizza
+                                </option>
+
+                                <option value="Burger">
+                                    Burger
+                                </option>
+
+                                <option value="Biryani">
+                                    Biryani
+                                </option>
+
+                                <option value="Chinese">
+                                    Chinese
+                                </option>
+
+                                <option value="Drinks">
+                                    Drinks
+                                </option>
+
+                                <option value="Dessert">
+                                    Dessert
+                                </option>
+
                                 <option value="South Indian">
                                     South Indian
                                 </option>
+
                                 <option value="North Indian">
                                     North Indian
                                 </option>
