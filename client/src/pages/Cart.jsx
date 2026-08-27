@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Cart.css";
 
 const Cart = () => {
+
+    const navigate = useNavigate();
 
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -145,11 +148,13 @@ const Cart = () => {
     }
 
 
-    const total = items.reduce(
-        (sum, item) =>
-            sum + item.food.price * item.quantity,
-        0
-    );
+    let total = 0;
+
+    for (const item of items) {
+
+        total += item.food.price * item.quantity;
+
+    }
 
 
     return (
@@ -303,6 +308,14 @@ const Cart = () => {
                         </strong>
 
                     </div>
+
+
+                    <button
+                        className="checkout-button"
+                        onClick={() => navigate("/checkout")}
+                    >
+                        Proceed to Checkout
+                    </button>
 
                 </div>
 

@@ -6,7 +6,7 @@ const User = require('./models/user');
 const foods = require("./routes/food");
 const users = require("./routes/auth");
 const cart = require("./routes/cart");
-
+const orders = require("./routes/order");
 const cors = require("cors");
 
 const app = express();
@@ -30,7 +30,8 @@ async function main() {
 
 app.use("/",foods);
 app.use("/",users);
-app.use("/",cart)
+app.use("/",cart);
+app.use("/",orders)
 
 
 

@@ -8,6 +8,8 @@ import EditFood from "./pages/EditFood";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Orders from "./pages/Orders";
 
 import {
   BrowserRouter,
@@ -135,6 +137,30 @@ const App = () => {
             path="/cart"
             element={<Cart />}
           />
+
+          <Route
+    path="/checkout"
+    element={
+        <ProtectedRoute
+            isLoggedIn={isLoggedIn}
+            user={user}
+            element={<Checkout />}
+        />
+
+        
+    }
+/>
+
+<Route
+    path="/orders"
+    element={
+        <ProtectedRoute
+            isLoggedIn={isLoggedIn}
+            user={user}
+            element={<Orders />}
+        />
+    }
+/>
 
         </Routes>
 
