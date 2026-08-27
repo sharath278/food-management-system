@@ -61,7 +61,7 @@ const ViewFood = () => {
                 `http://localhost:8080/api/food/${id}`
             );
 
-            
+
 
             navigate("/");
 
@@ -74,6 +74,38 @@ const ViewFood = () => {
         }
 
     };
+
+   // add to cart 
+    const addToCart = async () => {
+
+    const token = localStorage.getItem("token");
+
+    try {
+
+        await axios.post(
+            "http://localhost:8080/cart",
+            {
+                food: food._id
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        alert("Food added to cart");
+
+    } catch (error) {
+
+        console.log(error);
+
+        alert(
+            error.response?.data?.message ||
+            "Failed to add food to cart"
+        );
+    }
+};
 
 
     if (loading) {
@@ -341,16 +373,17 @@ const ViewFood = () => {
                         </div>
 
 
-                        {/* Order Button */}
+                        {/* Add to cart Button */}
 
                         <Button
                             variant="contained"
                             fullWidth
                             className="order-button"
                             disabled={!food.isAvailable}
+                            onClick={addToCart}
                         >
                             {food.isAvailable
-                                ? "ORDER NOW"
+                                ? "ADD TO CART"
                                 : "NOT AVAILABLE"}
                         </Button>
 

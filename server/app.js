@@ -5,6 +5,7 @@ const Food = require('./models/food');
 const User = require('./models/user');
 const foods = require("./routes/food");
 const users = require("./routes/auth");
+const cart = require("./routes/cart");
 
 const cors = require("cors");
 
@@ -29,6 +30,7 @@ async function main() {
 
 app.use("/",foods);
 app.use("/",users);
+app.use("/",cart)
 
 
 

@@ -7,6 +7,7 @@ import ViewFood from "./pages/ViewFood";
 import EditFood from "./pages/EditFood";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Cart from "./pages/Cart";
 
 import {
   BrowserRouter,
@@ -128,6 +129,11 @@ const App = () => {
                 element={<EditFood />}
               />
             }
+          />
+
+          <Route
+            path="/cart"
+            element={<Cart />}
           />
 
         </Routes>
