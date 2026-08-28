@@ -84,5 +84,62 @@ const getMyOrders = async (req, res) => {
 };
 
 
+const getAllOrders = async (req, res) => {
+    try {
 
-module.exports = {placeOrder,getMyOrders};
+        const orders = await Order.find()
+            .populate("user", "name email")
+            .sort({
+                createdAt: -1
+            });
+
+        res.status(200).json({
+            orders: orders
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            message: "Something went wrong"
+        });
+    }
+};
+
+
+const updateOrderStatus = async (req, res) => {
+    try {
+
+        const { orderId } = req.params;
+        const { status } = req.body;
+
+        const order = await Order.findById(orderId);
+
+        if (!order) {
+            return res.status(404).json({
+                message: "Order not found"
+            });
+        }
+
+        order.status = status;
+
+        await order.save();
+
+        res.status(200).json({
+            message: "Order status updated successfully",
+            order: order
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            message: "Something went wrong"
+        });
+    }
+};
+
+
+module.exports = {placeOrder,getMyOrders,getAllOrders,updateOrderStatus};
