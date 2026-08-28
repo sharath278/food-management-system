@@ -53,6 +53,7 @@ const ShoppingCartIcon = () => (
   </svg>
 );
 
+
 // =========================
 // Navbar
 // =========================
@@ -66,15 +67,13 @@ const Navbar = ({
   // Logout function
   const handleLogout = () => {
 
-    // Remove JWT
     localStorage.removeItem("token");
 
-    // Remove user information
     setUser(null);
 
-    // Change login state
     setIsLoggedIn(false);
   };
+
 
   return (
     <AppBar
@@ -84,6 +83,7 @@ const Navbar = ({
     >
 
       <Toolbar className="navbar-toolbar">
+
 
         {/* ================= Logo ================= */}
 
@@ -117,6 +117,16 @@ const Navbar = ({
             Home
           </Button>
 
+
+          <Button
+            component={Link}
+            to="/"
+            className="navbar-nav-button"
+          >
+            All Foods
+          </Button>
+
+
           <Button
             component={Link}
             to="/about"
@@ -124,6 +134,32 @@ const Navbar = ({
           >
             About
           </Button>
+
+
+          {isLoggedIn && (
+
+            <Button
+              component={Link}
+              to="/orders"
+              className="navbar-nav-button"
+            >
+              My Orders
+            </Button>
+
+          )}
+
+
+          {isLoggedIn && user?.role === "admin" && (
+
+            <Button
+              component={Link}
+              to="/admin"
+              className="navbar-nav-button"
+            >
+              Admin Manage
+            </Button>
+
+          )}
 
         </Box>
 
@@ -133,6 +169,7 @@ const Navbar = ({
         {isLoggedIn ? (
 
           <>
+
             {/* Show user's name */}
 
             <Typography
@@ -147,7 +184,7 @@ const Navbar = ({
             </Typography>
 
 
-            {/* Logout button */}
+            {/* Logout */}
 
             <Button
               onClick={handleLogout}
@@ -155,6 +192,7 @@ const Navbar = ({
             >
               Logout
             </Button>
+
           </>
 
         ) : (
@@ -179,6 +217,7 @@ const Navbar = ({
         >
           <ShoppingCartIcon />
         </IconButton>
+
 
       </Toolbar>
 

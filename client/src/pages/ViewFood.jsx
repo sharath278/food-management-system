@@ -13,7 +13,8 @@ import {
 
 import "./ViewFood.css";
 
-const ViewFood = () => {
+
+const ViewFood = ({ user }) => {
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -57,11 +58,18 @@ const ViewFood = () => {
 
         try {
 
+            const token = localStorage.getItem("token");
+
             await axios.delete(
-                `http://localhost:8080/api/food/${id}`
+                `http://localhost:8080/api/food/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
             );
 
-
+            alert("Food deleted successfully");
 
             navigate("/");
 
@@ -75,37 +83,40 @@ const ViewFood = () => {
 
     };
 
-   // add to cart 
+
+    // Add to cart
     const addToCart = async () => {
 
-    const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token");
 
-    try {
+        try {
 
-        await axios.post(
-            "http://localhost:8080/cart",
-            {
-                food: food._id
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
+            await axios.post(
+                "http://localhost:8080/cart",
+                {
+                    food: food._id
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
                 }
-            }
-        );
+            );
 
-        alert("Food added to cart");
+            alert("Food added to cart");
 
-    } catch (error) {
+        } catch (error) {
 
-        console.log(error);
+            console.log(error);
 
-        alert(
-            error.response?.data?.message ||
-            "Failed to add food to cart"
-        );
-    }
-};
+            alert(
+                error.response?.data?.message ||
+                "Failed to add food to cart"
+            );
+
+        }
+
+    };
 
 
     if (loading) {
@@ -360,9 +371,12 @@ const ViewFood = () => {
 
                     <div className="order-section">
 
+
                         <div className="order-note">
 
-                            <span>🔥</span>
+                            <span>
+                                🔥
+                            </span>
 
                             <p>
                                 {food.isAvailable
@@ -373,7 +387,7 @@ const ViewFood = () => {
                         </div>
 
 
-                        {/* Add to cart Button */}
+                        {/* Add to Cart */}
 
                         <Button
                             variant="contained"
@@ -388,30 +402,34 @@ const ViewFood = () => {
                         </Button>
 
 
-                        {/* Edit + Delete */}
+                        {/* Edit + Delete - Admin Only */}
 
-                        <div className="admin-actions">
+                        {user?.role === "admin" && (
 
-                            <Button
-                                variant="outlined"
-                                className="edit-button"
-                                onClick={() =>
-                                    navigate(`/food/edit/${id}`)
-                                }
-                            >
-                                ✏ Edit Food
-                            </Button>
+                            <div className="admin-actions">
+
+                                <Button
+                                    variant="outlined"
+                                    className="edit-button"
+                                    onClick={() =>
+                                        navigate(`/food/edit/${id}`)
+                                    }
+                                >
+                                    ✏ Edit Food
+                                </Button>
 
 
-                            <Button
-                                variant="outlined"
-                                className="delete-button"
-                                onClick={deletefood}
-                            >
-                                🗑 Delete Food
-                            </Button>
+                                <Button
+                                    variant="outlined"
+                                    className="delete-button"
+                                    onClick={deletefood}
+                                >
+                                    🗑 Delete Food
+                                </Button>
 
-                        </div>
+                            </div>
+
+                        )}
 
                     </div>
 
@@ -423,5 +441,6 @@ const ViewFood = () => {
         </div>
     );
 };
+
 
 export default ViewFood;

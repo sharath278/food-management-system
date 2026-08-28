@@ -4,12 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import "./EditFood.css";
 
+
 const EditFood = () => {
 
     const { id } = useParams();
+
     const navigate = useNavigate();
 
+
     const [formdata, setFormdata] = useState({
+
         name: "",
         description: "",
         price: "",
@@ -19,12 +23,17 @@ const EditFood = () => {
         isAvailable: true,
         preparationTime: "",
         rating: ""
+
     });
+
 
     const [loading, setLoading] = useState(true);
 
 
-    // Get existing food data
+    // =========================
+    // Get Existing Food
+    // =========================
+
     useEffect(() => {
 
         const getdata = async () => {
@@ -49,12 +58,16 @@ const EditFood = () => {
 
         };
 
+
         getdata();
 
     }, [id]);
 
 
-    // Handle inputs
+    // =========================
+    // Handle Inputs
+    // =========================
+
     const inputhandle = (event) => {
 
         const {
@@ -64,56 +77,102 @@ const EditFood = () => {
             checked
         } = event.target;
 
+
         setFormdata((prev) => ({
+
             ...prev,
-            [name]: type === "checkbox"
-                ? checked
-                : value
+
+            [name]:
+                type === "checkbox"
+                    ? checked
+                    : value
+
         }));
 
     };
 
 
-    // Submit updated food
+    // =========================
+    // Submit Updated Food
+    // =========================
+
     const submithandle = async (event) => {
 
         event.preventDefault();
 
+
+        const token = localStorage.getItem("token");
+
+
         try {
 
-            const res = await axios.put(
+            await axios.put(
+
                 `http://localhost:8080/api/food/${id}`,
-                formdata
+
+                formdata,
+
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+
             );
 
-          
+
+            alert("Food updated successfully");
+
 
             navigate(`/food/${id}`);
+
 
         } catch (error) {
 
             console.log(error);
+
+
+            alert(
+                error.response?.data?.message ||
+                "Failed to update food"
+            );
 
         }
 
     };
 
 
+    // =========================
+    // Loading
+    // =========================
+
     if (loading) {
 
         return (
+
             <div className="edit-loading">
+
                 <div className="edit-loader"></div>
-                <p>Loading food details...</p>
+
+                <p>
+                    Loading food details...
+                </p>
+
             </div>
+
         );
 
     }
 
 
+    // =========================
+    // Page
+    // =========================
+
     return (
 
         <div className="edit-food-page">
+
 
             {/* Header */}
 
@@ -181,6 +240,7 @@ const EditFood = () => {
                     {/* Price + Category */}
 
                     <div className="edit-form-row">
+
 
                         <div className="edit-form-group">
 
@@ -277,6 +337,7 @@ const EditFood = () => {
 
                     <div className="edit-form-row">
 
+
                         <div className="edit-form-group">
 
                             <label>
@@ -320,6 +381,7 @@ const EditFood = () => {
 
                     <div className="edit-checkbox-container">
 
+
                         <label className="edit-checkbox">
 
                             <input
@@ -351,6 +413,7 @@ const EditFood = () => {
 
                         </label>
 
+
                     </div>
 
 
@@ -358,10 +421,13 @@ const EditFood = () => {
 
                     <div className="edit-button-container">
 
+
                         <button
                             type="button"
                             className="cancel-button"
-                            onClick={() => navigate(`/food/${id}`)}
+                            onClick={() =>
+                                navigate(`/food/${id}`)
+                            }
                         >
                             Cancel
                         </button>
@@ -374,14 +440,19 @@ const EditFood = () => {
                             Update Food
                         </button>
 
+
                     </div>
+
 
                 </form>
 
             </div>
 
         </div>
+
     );
+
 };
+
 
 export default EditFood;
